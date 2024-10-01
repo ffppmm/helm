@@ -41,7 +41,7 @@ func newAliasListCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
 		Long:              aliasListDesc,
 		Args:              require.NoArgs,
 		ValidArgsFunction: noMoreArgsCompFunc,
-		RunE: func(_ *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, _ []string) error {
 			var err error
 			a, _ := registry.LoadAliasesFile(settings.RegistryAliasConfig)
 
