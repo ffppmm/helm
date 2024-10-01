@@ -39,7 +39,7 @@ func newAliasSetCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
 		Short:             "configure the named alias",
 		Long:              aliasSetDesc,
 		Args:              require.MinimumNArgs(1),
-		ValidArgsFunction: noCompletions,
+		ValidArgsFunction: cobra.NoFileCompletions,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			alias := args[0]
 			var value *string

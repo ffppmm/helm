@@ -38,7 +38,7 @@ func newAliasSubstituteCmd(cfg *action.Configuration, out io.Writer) *cobra.Comm
 		Short:             "configure a OCI registry URL substitution",
 		Long:              aliasSubstituteDesc,
 		Args:              require.MinimumNArgs(1),
-		ValidArgsFunction: noCompletions,
+		ValidArgsFunction: cobra.NoFileCompletions,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			substitution := args[0]
 			var replacement *string
