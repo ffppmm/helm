@@ -32,7 +32,7 @@ const aliasListDesc = `
 List registry aliases and substitutions.
 `
 
-func newAliasListCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
+func newAliasListCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
 	var aliasesOpt, substitutionsOpt bool
 
 	cmd := &cobra.Command{
@@ -41,7 +41,7 @@ func newAliasListCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
 		Long:              aliasListDesc,
 		Args:              require.NoArgs,
 		ValidArgsFunction: noMoreArgsCompFunc,
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, args []string) error {
 			var err error
 			a, _ := registry.LoadAliasesFile(settings.RegistryAliasConfig)
 

@@ -32,14 +32,14 @@ const aliasSubstituteDesc = `
 Set or remove a registry substitution.
 `
 
-func newAliasSubstituteCmd(_cfg *action.Configuration, out io.Writer) *cobra.Command {
+func newAliasSubstituteCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "substitute URL [URL]",
 		Short:             "configure a OCI registry URL substitution",
 		Long:              aliasSubstituteDesc,
 		Args:              require.MinimumNArgs(1),
 		ValidArgsFunction: noMoreArgsCompFunc,
-		RunE: func(_cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, args []string) error {
 			substitution := args[0]
 			var replacement *string
 			if len(args) > 1 {

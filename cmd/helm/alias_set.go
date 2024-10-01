@@ -33,14 +33,14 @@ const aliasSetDesc = `
 Set or remove an alias for an OCI registry.
 `
 
-func newAliasSetCmd(_cfg *action.Configuration, out io.Writer) *cobra.Command {
+func newAliasSetCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "set NAME [URL]",
 		Short:             "configure the named alias",
 		Long:              aliasSetDesc,
 		Args:              require.MinimumNArgs(1),
 		ValidArgsFunction: noMoreArgsCompFunc,
-		RunE: func(_cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, args []string) error {
 			alias := args[0]
 			var value *string
 			if len(args) > 1 {
