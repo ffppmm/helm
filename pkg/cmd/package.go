@@ -98,6 +98,7 @@ func newPackageCmd(out io.Writer) *cobra.Command {
 						Getters:          p,
 						Debug:            settings.Debug,
 						RegistryClient:   registryClient,
+						RegistryAliasConfig: settings.RegistryAliasConfig,
 						RepositoryConfig: settings.RepositoryConfig,
 						RepositoryCache:  settings.RepositoryCache,
 					}

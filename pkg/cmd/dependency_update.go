@@ -71,6 +71,7 @@ func newDependencyUpdateCmd(_ *action.Configuration, out io.Writer) *cobra.Comma
 				SkipUpdate:       client.SkipRefresh,
 				Getters:          getter.All(settings),
 				RegistryClient:   registryClient,
+				RegistryAliasConfig: settings.RegistryAliasConfig,
 				RepositoryConfig: settings.RepositoryConfig,
 				RepositoryCache:  settings.RepositoryCache,
 				Debug:            settings.Debug,
