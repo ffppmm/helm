@@ -20,6 +20,8 @@ import (
 
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
+
+	chart "helm.sh/helm/v4/pkg/chart/v2"
 )
 
 // Aliases represents the registry/aliases.yaml file
@@ -34,7 +36,7 @@ type Aliases struct {
 // APIVersion is automatically set.
 func NewAliasesFile() *Aliases {
 	return &Aliases{
-		APIVersion:    APIVersionV1,
+		APIVersion:    chart.APIVersionV1,
 		Aliases:       map[string]string{},
 		Substitutions: map[string]string{},
 	}
