@@ -29,6 +29,9 @@ import (
 const aliasHelp = `
 This command consists of multiple subcommands to interact with OCI aliases.
 `
+const aliasDesc = `
+Set or remove an alias for an OCI registry.
+`
 
 func newAliasCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
@@ -50,7 +53,7 @@ func newAliasListCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "list",
 		Short:             "list aliases and substitutions",
-		Long:              aliasListDesc,
+		Long:              aliasDesc,
 		Args:              require.NoArgs,
 		ValidArgsFunction: noCompletions,
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -90,7 +93,7 @@ func newAliasSubstituteCmd(cfg *action.Configuration, out io.Writer) *cobra.Comm
 	cmd := &cobra.Command{
 		Use:               "substitute URL [URL]",
 		Short:             "configure a OCI registry URL substitution",
-		Long:              aliasSubstituteDesc,
+		Long:              aliasDesc,
 		Args:              require.MinimumNArgs(1),
 		ValidArgsFunction: noCompletions,
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -127,43 +130,12 @@ func setSubstitution(aliasesFile, substitution string, replacement *string) erro
 
 	return nil
 }
-/*
-Copyright The Helm Authors.
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
-package main
-
-import (
-	"io"
-	"strings"
-
-	"github.com/pkg/errors"
-
-	"github.com/spf13/cobra"
-
-	"helm.sh/helm/v3/cmd/helm/require"
-	"helm.sh/helm/v3/pkg/action"
-	"helm.sh/helm/v3/pkg/registry"
-)
-
-const aliasSetDesc = `
-Set or remove an alias for an OCI registry.
-`
 
 func newAliasSetCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "set NAME [URL]",
 		Short:             "configure the named alias",
-		Long:              aliasSetDesc,
+		Long:              aliasDesc,
 		Args:              require.MinimumNArgs(1),
 		ValidArgsFunction: noCompletions,
 		RunE: func(cmd *cobra.Command, args []string) error {
