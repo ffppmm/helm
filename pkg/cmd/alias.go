@@ -49,7 +49,7 @@ func newAliasCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
 	return cmd
 }
 
-func newAliasListCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
+func newAliasListCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
 	var aliasesOpt, substitutionsOpt bool
 
 	cmd := &cobra.Command{
@@ -58,7 +58,7 @@ func newAliasListCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
 		Long:              aliasDesc,
 		Args:              require.NoArgs,
 		ValidArgsFunction: noMoreArgsCompFunc,
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, args []string) error {
 			var err error
 			a, _ := registry.LoadAliasesFile(settings.RegistryAliasConfig)
 
@@ -91,14 +91,14 @@ func newAliasListCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
 	return cmd
 }
 
-func newAliasSubstituteCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
+func newAliasSubstituteCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "substitute URL [URL]",
 		Short:             "configure a OCI registry URL substitution",
 		Long:              aliasDesc,
 		Args:              require.MinimumNArgs(1),
 		ValidArgsFunction: noMoreArgsCompFunc,
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, args []string) error {
 			substitution := args[0]
 			var replacement *string
 			if len(args) > 1 {
@@ -133,14 +133,14 @@ func setSubstitution(aliasesFile, substitution string, replacement *string) erro
 	return nil
 }
 
-func newAliasSetCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
+func newAliasSetCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "set NAME [URL]",
 		Short:             "configure the named alias",
 		Long:              aliasDesc,
 		Args:              require.MinimumNArgs(1),
 		ValidArgsFunction: noMoreArgsCompFunc,
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, args []string) error {
 			alias := args[0]
 			var value *string
 			if len(args) > 1 {
