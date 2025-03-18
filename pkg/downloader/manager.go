@@ -601,7 +601,7 @@ func (m *Manager) resolveRepoNames(deps []*chart.Dependency) (map[string]string,
 		}
 
 		dd.Repository = aliases.Expand(dd.Repository)
-		
+
 		if registry.IsOCI(dd.Repository) {
 			reposMap[dd.Name] = dd.Repository
 			continue

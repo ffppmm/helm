@@ -21,9 +21,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	"helm.sh/helm/v4/pkg/cmd/require"
 	"helm.sh/helm/v4/pkg/action"
 	"helm.sh/helm/v4/pkg/cli/output"
+	"helm.sh/helm/v4/pkg/cmd/require"
 	"helm.sh/helm/v4/pkg/registry"
 
 )
