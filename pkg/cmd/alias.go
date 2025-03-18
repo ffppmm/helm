@@ -58,7 +58,7 @@ func newAliasListCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
 		Long:              aliasDesc,
 		Args:              require.NoArgs,
 		ValidArgsFunction: noMoreArgsCompFunc,
-		RunE: func(_ *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, _ []string) error {
 			var err error
 			a, _ := registry.LoadAliasesFile(settings.RegistryAliasConfig)
 
@@ -91,7 +91,7 @@ func newAliasListCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
 	return cmd
 }
 
-func newAliasSubstituteCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
+func newAliasSubstituteCmd(_ *action.Configuration, _ io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "substitute URL [URL]",
 		Short:             "configure a OCI registry URL substitution",
@@ -133,7 +133,7 @@ func setSubstitution(aliasesFile, substitution string, replacement *string) erro
 	return nil
 }
 
-func newAliasSetCmd(_ *action.Configuration, out io.Writer) *cobra.Command {
+func newAliasSetCmd(_ *action.Configuration, _ io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "set NAME [URL]",
 		Short:             "configure the named alias",
