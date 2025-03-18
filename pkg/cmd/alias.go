@@ -25,7 +25,6 @@ import (
 	"helm.sh/helm/v4/pkg/cli/output"
 	"helm.sh/helm/v4/pkg/cmd/require"
 	"helm.sh/helm/v4/pkg/registry"
-
 )
 
 const aliasHelp = `

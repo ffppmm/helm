@@ -92,15 +92,15 @@ func newPackageCmd(out io.Writer) *cobra.Command {
 
 				if client.DependencyUpdate {
 					downloadManager := &downloader.Manager{
-						Out:              io.Discard,
-						ChartPath:        path,
-						Keyring:          client.Keyring,
-						Getters:          p,
-						Debug:            settings.Debug,
-						RegistryClient:   registryClient,
+						Out:                 io.Discard,
+						ChartPath:           path,
+						Keyring:             client.Keyring,
+						Getters:             p,
+						Debug:               settings.Debug,
+						RegistryClient:      registryClient,
 						RegistryAliasConfig: settings.RegistryAliasConfig,
-						RepositoryConfig: settings.RepositoryConfig,
-						RepositoryCache:  settings.RepositoryCache,
+						RepositoryConfig:    settings.RepositoryConfig,
+						RepositoryCache:     settings.RepositoryCache,
 					}
 
 					if err := downloadManager.Update(); err != nil {
