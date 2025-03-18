@@ -567,7 +567,7 @@ func (m *Manager) resolveRepoNames(deps []*chart.Dependency) (map[string]string,
 			return nil, err
 		}
 	}
-	
+
 	aliases, err := registry.LoadAliasesFile(m.RegistryAliasConfig)
 	if err != nil {
 		if os.IsNotExist(errors.Cause(err)) {

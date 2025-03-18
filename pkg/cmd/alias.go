@@ -17,8 +17,8 @@ import (
 	"io"
 	"strings"
 
-	"github.com/pkg/errors"
 	"github.com/gosuri/uitable"
+	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
 	"helm.sh/helm/v4/pkg/cmd/require"
