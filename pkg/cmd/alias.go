@@ -16,7 +16,7 @@ package main
 import (
 	"io"
 	"github.com/spf13/cobra"
-	"helm.sh/helm/v3/pkg/action"
+	"helm.sh/helm/v4/pkg/action"
 )
 
 const aliasHelp = `
