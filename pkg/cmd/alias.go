@@ -15,8 +15,15 @@ package cmd
 
 import (
 	"io"
+
+	"github.com/gosuri/uitable"
 	"github.com/spf13/cobra"
+
+	"helm.sh/helm/v4/pkg/cmd/require"
 	"helm.sh/helm/v4/pkg/action"
+	"helm.sh/helm/v4/pkg/cli/output"
+	"helm.sh/helm/v4/pkg/registry"
+
 )
 
 const aliasHelp = `
@@ -35,4 +42,88 @@ func newAliasCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
 		newAliasSubstituteCmd(cfg, out),
 	)
 	return cmd
+}
+
+func newAliasListCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
+	var aliasesOpt, substitutionsOpt bool
+
+	cmd := &cobra.Command{
+		Use:               "list",
+		Short:             "list aliases and substitutions",
+		Long:              aliasListDesc,
+		Args:              require.NoArgs,
+		ValidArgsFunction: noCompletions,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			var err error
+			a, _ := registry.LoadAliasesFile(settings.RegistryAliasConfig)
+
+			if aliasesOpt || !substitutionsOpt {
+				table := uitable.New()
+				table.AddRow("ALIAS", "URL")
+				for a, url := range a.Aliases {
+					table.AddRow(a, url)
+				}
+				err = output.EncodeTable(out, table)
+			}
+
+			if substitutionsOpt || !aliasesOpt {
+				table := uitable.New()
+				table.AddRow("SUBSTITUTION", "REPLACEMENT")
+				for s, r := range a.Substitutions {
+					table.AddRow(s, r)
+				}
+				err = output.EncodeTable(out, table)
+			}
+
+			return err
+		},
+	}
+
+	f := cmd.Flags()
+	f.BoolVarP(&aliasesOpt, "aliases", "a", false, "list aliases")
+	f.BoolVarP(&substitutionsOpt, "substitutions", "s", false, "list substitutions")
+
+	return cmd
+}
+
+func newAliasSubstituteCmd(cfg *action.Configuration, out io.Writer) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:               "substitute URL [URL]",
+		Short:             "configure a OCI registry URL substitution",
+		Long:              aliasSubstituteDesc,
+		Args:              require.MinimumNArgs(1),
+		ValidArgsFunction: noCompletions,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			substitution := args[0]
+			var replacement *string
+			if len(args) > 1 {
+				replacement = &args[1]
+			}
+
+			err := setSubstitution(settings.RegistryAliasConfig, substitution, replacement)
+
+			return err
+		},
+	}
+
+	return cmd
+}
+
+func setSubstitution(aliasesFile, substitution string, replacement *string) error {
+	a, err := registry.LoadAliasesFile(aliasesFile)
+	if err != nil && !isNotExist(err) {
+		return errors.New("failed to load aliases")
+	}
+
+	if replacement != nil {
+		a.SetSubstitution(substitution, *replacement)
+	} else {
+		a.RemoveSubstitution(substitution)
+	}
+
+	if err := a.WriteAliasesFile(aliasesFile, 0o644); err != nil {
+		return err
+	}
+
+	return nil
 }
