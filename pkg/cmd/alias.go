@@ -15,7 +15,9 @@ package cmd
 
 import (
 	"io"
+	"strings"
 
+	"github.com/pkg/errors"
 	"github.com/gosuri/uitable"
 	"github.com/spf13/cobra"
 
